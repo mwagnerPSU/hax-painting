@@ -83,6 +83,8 @@ export class HaxCanvas extends LitElement {
           //creates color image based on the color selected
           //each image uses the click location ratios to postion picture in the right spot
           if (this.color === 'red') {
+            this.addColor(this.color, this.clickLocationX, this.clickLocationY);
+
             //create color image
             let newRedSplat = `<img class="splat" src="https://i.postimg.cc/wBrsfHCF/red-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
             //adds color image to page
@@ -132,6 +134,12 @@ export class HaxCanvas extends LitElement {
     if (super.firstUpdated) {
       super.firstUpdated(changedProperties);
     }
+  }
+
+  addColor(color, xCoorRatio, yCoorRatio) {
+    fetch(`../api/addColor?color=${color}&xCoorRatio=${xCoorRatio}&yCoorRatio=${yCoorRatio}`).then(res => res.json()).then((data) => {
+      console.log('fetch ran');
+    });
   }
 
   pictureAreaClicked(event) {
