@@ -1,6 +1,6 @@
-import { html, css, LitElement } from '../node_modules/lit/index.d.ts';
-import './HaxCanvas.js';
-import './HaxColors.js';
+import { html, css, LitElement } from 'lit';
+import './HaxCanvas';
+import './HaxColors';
 
 export class HaxPainting extends LitElement {
   static get tag() {
