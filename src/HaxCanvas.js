@@ -144,39 +144,7 @@ export class HaxCanvas extends LitElement {
       .splat {
         height: 100px;
         width: 100px;
-        position: fixed;
-        z-index: -1;
-      }
-
-      .redTest {
-        height: 100px;
-        width: 100px;
-        position: fixed;
-        left: 100px;
-        z-index: -1;
-      }
-
-      .blueTest {
-        height: 100px;
-        width: 100px;
-        position: fixed;
-        left: 200px;
-        z-index: -1;
-      }
-
-      .greenTest {
-        height: 100px;
-        width: 100px;
-        position: fixed;
-        left: 300px;
-        z-index: -1;
-      }
-
-      .orangeTest {
-        height: 100px;
-        width: 100px;
-        position: fixed;
-        left: 400px;
+        position: absolute;
         z-index: -1;
       }
 
@@ -188,6 +156,8 @@ export class HaxCanvas extends LitElement {
 
     `;
   }
+
+  //website with all images hosted https://postimg.cc/gallery/4fYBTXB/a1a34154
 
   render() {
     return html`
