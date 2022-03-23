@@ -211,11 +211,11 @@ export class HaxColors extends LitElement {
       }
 
       .blue {
-        background-color: blue;
+        background-color: cyan;
       }
 
       .green {
-        background-color: green;
+        background-color: lightgreen;
       }
 
       .orange {
