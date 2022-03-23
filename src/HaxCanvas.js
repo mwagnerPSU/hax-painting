@@ -75,6 +75,24 @@ export class HaxCanvas extends LitElement {
 
           console.log(`click loc x: ${this.clickLocationX}`);
           console.log(`click loc y: ${this.clickLocationY}`);
+
+          if (this.color === 'red') {
+            let redSplat = this.shadowRoot.querySelector('.redTest');
+            redSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
+            redSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
+          } else if (this.color === 'blue') {
+            let blueSplat = this.shadowRoot.querySelector('.blueTest');
+            blueSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
+            blueSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
+          } else if (this.color === 'green') {
+            let greenSplat = this.shadowRoot.querySelector('.greenTest');
+            greenSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
+            greenSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
+          } else if (this.color === 'orange') {
+            let orangeSplat = this.shadowRoot.querySelector('.orangeTest');
+            orangeSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
+            orangeSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
+          }
         }
         this.clicked = false;
         
@@ -108,11 +126,45 @@ export class HaxCanvas extends LitElement {
       .pictureArea {
         display: flex;
         justify-content: center;
+        height: auto;
+      }
+
+      .redTest {
+        height: 100px;
+        width: 100px;
+        position: fixed;
+        left: 100px;
+        z-index: -1;
+      }
+
+      .blueTest {
+        height: 100px;
+        width: 100px;
+        position: fixed;
+        left: 200px;
+        z-index: -1;
+      }
+
+      .greenTest {
+        height: 100px;
+        width: 100px;
+        position: fixed;
+        left: 300px;
+        z-index: -1;
+      }
+
+      .orangeTest {
+        height: 100px;
+        width: 100px;
+        position: fixed;
+        left: 400px;
+        z-index: -1;
       }
 
       .haxImg {
         border: 1px dashed black;
         width: 95%;
+        z-index: 1;
       }
 
     `;
@@ -121,8 +173,14 @@ export class HaxCanvas extends LitElement {
   render() {
     return html`
     <div class="pictureArea">
+      <img class="redTest" src="../images/red-splat.png">
+      <img class="blueTest" src="../images/blue-splat.png">
+      <img class="greenTest" src="../images/green-splat.png">
+      <img class="orangeTest" src="../images/orange-splat.png">
       <img class="haxImg" src="../images/hax-camp-pic-2022.png" @click="${this.pictureAreaClicked}">
     </div>
+    
+    
     `;
   }
 }
