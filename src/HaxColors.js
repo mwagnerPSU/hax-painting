@@ -1,4 +1,4 @@
-import { html, css, LitElement } from '../node_modules/lit';
+import { html, css, LitElement } from 'lit';
 
 export class HaxColors extends LitElement {
   static get tag() {
