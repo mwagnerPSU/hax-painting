@@ -22,11 +22,15 @@ export class HaxCanvas extends LitElement {
     return {
       title: { type: String },
       clicked: { type: Boolean },
+      //selected color
       color: { type: String },
+      //mouse coordinates on click
       xCoor: { type: Number },
       yCoor: { type: Number },
+      //hax picture size on click
       pictureX: { type: Number },
       pictureY: { type: Number },
+      //ratio for positioning of new color image
       clickLocationX: { type: Number },
       clickLocationY: { type: Number },
     };
@@ -69,36 +73,46 @@ export class HaxCanvas extends LitElement {
           console.log(`pictureX: ${this.pictureX}`);
           console.log(`pictureY: ${this.pictureY}`);
 
-          //makes a percentage of where the click location was relative to the size of the image
+          //makes a ratio of where the click location was relative to the size of the image
           this.clickLocationX = this.xCoor / this.pictureX;
           this.clickLocationY = this.yCoor / this.pictureY;
 
           console.log(`click loc x: ${this.clickLocationX}`);
           console.log(`click loc y: ${this.clickLocationY}`);
 
+          //creates color image based on the color selected
+          //each image uses the click location ratios to postion picture in the right spot
           if (this.color === 'red') {
+            //create color image
             let newRedSplat = `<img class="splat" src="https://i.postimg.cc/wBrsfHCF/red-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            //adds color image to page
             this.shadowRoot.querySelector('.colorsArea').innerHTML += newRedSplat;
 
             // let redSplat = this.shadowRoot.querySelector('.redTest');
             // redSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
             // redSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
           } else if (this.color === 'blue') {
+            //create color image
             let newBlueSplat = `<img class="splat" src="https://i.postimg.cc/4xJtnWvv/blue-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            //adds color image to page
             this.shadowRoot.querySelector('.colorsArea').innerHTML += newBlueSplat;
 
             // let blueSplat = this.shadowRoot.querySelector('.blueTest');
             // blueSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
             // blueSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
           } else if (this.color === 'green') {
+            //create color image
             let newGreenSplat = `<img class="splat" src="https://i.postimg.cc/2S2WWnTs/green-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            //adds color image to page
             this.shadowRoot.querySelector('.colorsArea').innerHTML += newGreenSplat;
 
             // let greenSplat = this.shadowRoot.querySelector('.greenTest');
             // greenSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
             // greenSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
           } else if (this.color === 'orange') {
+            //create color image
             let newOrangeSplat = `<img class="splat" src="https://i.postimg.cc/G2sT6VrR/orange-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            //adds color image to page
             this.shadowRoot.querySelector('.colorsArea').innerHTML += newOrangeSplat;
 
             // let orangeSplat = this.shadowRoot.querySelector('.orangeTest');
@@ -106,6 +120,8 @@ export class HaxCanvas extends LitElement {
             // orangeSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
           }
         }
+
+        //resets click
         this.clicked = false;
         
       }
@@ -162,6 +178,7 @@ export class HaxCanvas extends LitElement {
   render() {
     return html`
     <div class="pictureArea">
+      <!--area where color images are added to-->
       <div class="colorsArea"></div>
       <img class="haxImg" src="https://i.postimg.cc/tJQnbkCx/hax-camp-pic-2022.png" @click="${this.pictureAreaClicked}">
     </div>

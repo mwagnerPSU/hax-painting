@@ -157,21 +157,25 @@ export class HaxColors extends LitElement {
     }
   }
 
+  //fires when red button is selected
   redClicked() {
     console.log('red clicked');
     this.redSelected = true;
   }
 
+  //fires when blue button is selected
   blueClicked() {
     console.log('blue clicked');
     this.blueSelected = true;
   }
 
+  //fires when green button is selected
   greenClicked() {
     console.log('green clicked');
     this.greenSelected = true;
   }
   
+  //fires when otange button is selected
   orangeClicked() {
     console.log('orange clicked');
     this.orangeSelected = true;

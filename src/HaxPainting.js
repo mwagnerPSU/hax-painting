@@ -9,21 +9,17 @@ export class HaxPainting extends LitElement {
 
   constructor() {
     super();
-    this.title = '';
   }
 
   static get properties() {
     return {
-      title: { type: String },
-      loaded: { type: Boolean },
+
     };
   }
 
   updated(changedProperties) {
     changedProperties.forEach((oldValue, propName) =>  {
-      if (propName === 'loaded' && this[propName]) {
 
-      }
     });
   }
 
