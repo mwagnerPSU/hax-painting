@@ -15,12 +15,9 @@
     import { html, render } from 'lit';
     import '../src/HaxPainting.js';
 
-    const title = 'Hello owc World!';
     render(
       html`
-        <hax-painting .title=${title}>
-          some light-dom
-        </hax-painting>
+        <hax-painting></hax-painting>
       `,
       document.querySelector('#demo')
     );
