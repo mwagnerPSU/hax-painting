@@ -1,4 +1,4 @@
-import { html, css, LitElement } from '../node_modules/lit/index';
+import { html, css, LitElement } from '../node_modules/lit/index.d.ts';
 import './HaxCanvas.js';
 import './HaxColors.js';
 
