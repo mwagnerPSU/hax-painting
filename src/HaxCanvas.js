@@ -77,21 +77,33 @@ export class HaxCanvas extends LitElement {
           console.log(`click loc y: ${this.clickLocationY}`);
 
           if (this.color === 'red') {
-            let redSplat = this.shadowRoot.querySelector('.redTest');
-            redSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
-            redSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
+            let newRedSplat = `<img class="splat" src="../images/red-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            this.shadowRoot.querySelector('.colorsArea').innerHTML += newRedSplat;
+
+            // let redSplat = this.shadowRoot.querySelector('.redTest');
+            // redSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
+            // redSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
           } else if (this.color === 'blue') {
-            let blueSplat = this.shadowRoot.querySelector('.blueTest');
-            blueSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
-            blueSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
+            let newBlueSplat = `<img class="splat" src="../images/blue-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            this.shadowRoot.querySelector('.colorsArea').innerHTML += newBlueSplat;
+
+            // let blueSplat = this.shadowRoot.querySelector('.blueTest');
+            // blueSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
+            // blueSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
           } else if (this.color === 'green') {
-            let greenSplat = this.shadowRoot.querySelector('.greenTest');
-            greenSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
-            greenSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
+            let newGreenSplat = `<img class="splat" src="../images/green-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            this.shadowRoot.querySelector('.colorsArea').innerHTML += newGreenSplat;
+
+            // let greenSplat = this.shadowRoot.querySelector('.greenTest');
+            // greenSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
+            // greenSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
           } else if (this.color === 'orange') {
-            let orangeSplat = this.shadowRoot.querySelector('.orangeTest');
-            orangeSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
-            orangeSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
+            let newOrangeSplat = `<img class="splat" src="../images/orange-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            this.shadowRoot.querySelector('.colorsArea').innerHTML += newOrangeSplat;
+
+            // let orangeSplat = this.shadowRoot.querySelector('.orangeTest');
+            // orangeSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
+            // orangeSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
           }
         }
         this.clicked = false;
@@ -127,6 +139,13 @@ export class HaxCanvas extends LitElement {
         display: flex;
         justify-content: center;
         height: auto;
+      }
+
+      .splat {
+        height: 100px;
+        width: 100px;
+        position: fixed;
+        z-index: -1;
       }
 
       .redTest {
@@ -173,14 +192,9 @@ export class HaxCanvas extends LitElement {
   render() {
     return html`
     <div class="pictureArea">
-      <img class="redTest" src="../images/red-splat.png">
-      <img class="blueTest" src="../images/blue-splat.png">
-      <img class="greenTest" src="../images/green-splat.png">
-      <img class="orangeTest" src="../images/orange-splat.png">
+      <div class="colorsArea"></div>
       <img class="haxImg" src="../images/hax-camp-pic-2022.png" @click="${this.pictureAreaClicked}">
     </div>
-    
-    
     `;
   }
 }

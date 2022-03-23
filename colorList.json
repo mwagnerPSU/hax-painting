@@ -1,0 +1,24 @@
+{
+	"colorList": {
+		"0": {
+			"color": "red",
+			"xCoorRatio": "5",
+			"yCoorRatio": "5"
+		},
+		"1": {
+			"color": "blue",
+			"xCoorRatio": "50",
+			"yCoorRatio": "50"
+		},
+		"2": {
+			"color": "green",
+			"xCoorRatio": "70",
+			"yCoorRatio": "70"
+		},
+		"3": {
+			"color": "orange",
+			"xCoorRatio": "100",
+			"yCoorRatio": "100"
+		}
+	}
+}
