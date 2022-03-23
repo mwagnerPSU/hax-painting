@@ -15,6 +15,7 @@
     "test:watch": "web-test-runner --watch",
     "storybook": "npm run analyze -- --exclude dist && web-dev-server -c .storybook/server.mjs",
     "storybook:build": "npm run analyze -- --exclude dist && build-storybook",
+    "build": "rimraf dist && rollup -c rollup.config.js",
     "js": "rollup --config"
   },
   "dependencies": {
