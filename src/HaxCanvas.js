@@ -10,12 +10,19 @@ export class HaxCanvas extends LitElement {
     this.title = '';
     this.clicked = false;
     this.color = "";
+    this.brush = 'normal';
     this.xCoor = 0;
     this.yCoor = 0;
     this.pictureX = 0;
     this.pictureY = 0;
     this.clickLocationX = 0;
     this.clickLocationY = 0;
+    this.splatMap = {
+      red: "https://i.postimg.cc/wBrsfHCF/splat.png",
+      blue: "https://i.postimg.cc/4xJtnWvv/splat.png",
+      green: "https://i.postimg.cc/2S2WWnTs/splat.png",
+      orange: "https://i.postimg.cc/G2sT6VrR/splat.png",
+    };
   }
 
   static get properties() {
@@ -33,6 +40,8 @@ export class HaxCanvas extends LitElement {
       //ratio for positioning of new color image
       clickLocationX: { type: Number },
       clickLocationY: { type: Number },
+      // brush size
+      brush: { type: String}
     };
   }
 
@@ -40,23 +49,7 @@ export class HaxCanvas extends LitElement {
     changedProperties.forEach((oldValue, propName) =>  {
       if (propName === 'clicked' && this[propName]) {
         console.log('clicked');
-
         //checks a color is selected first
-        if (this.parentElement.querySelector('hax-colors').attributes.length > 0) {
-          //gets the color that is selected
-          let colorSelected = this.parentElement.querySelector('hax-colors').attributes[0].nodeName;
-
-          //sets name we'll use for color
-          if (colorSelected === 'redselected') {
-            this.color = 'red';
-          } else if (colorSelected === 'blueselected') {
-            this.color = 'blue';
-          } else if (colorSelected === 'greenselected') {
-            this.color = 'green';
-          } else if (colorSelected === 'orangeselected') {
-            this.color = 'orange';
-          }
-  
           console.log(this.color);
   
           console.log(`x: ${this.xCoor}`);
@@ -82,50 +75,25 @@ export class HaxCanvas extends LitElement {
 
           //creates color image based on the color selected
           //each image uses the click location ratios to postion picture in the right spot
-          if (this.color === 'red') {
-            // this.addColor(this.color, this.clickLocationX, this.clickLocationY);
-
-            //create color image
-            let newRedSplat = `<img class="splat" src="https://i.postimg.cc/wBrsfHCF/red-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
-            //adds color image to page
-            this.shadowRoot.querySelector('.colorsArea').innerHTML += newRedSplat;
-
-            // let redSplat = this.shadowRoot.querySelector('.redTest');
-            // redSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
-            // redSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
-          } else if (this.color === 'blue') {
-            //create color image
-            let newBlueSplat = `<img class="splat" src="https://i.postimg.cc/4xJtnWvv/blue-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
-            //adds color image to page
-            this.shadowRoot.querySelector('.colorsArea').innerHTML += newBlueSplat;
-
-            // let blueSplat = this.shadowRoot.querySelector('.blueTest');
-            // blueSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
-            // blueSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
-          } else if (this.color === 'green') {
-            //create color image
-            let newGreenSplat = `<img class="splat" src="https://i.postimg.cc/2S2WWnTs/green-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
-            //adds color image to page
-            this.shadowRoot.querySelector('.colorsArea').innerHTML += newGreenSplat;
-
-            // let greenSplat = this.shadowRoot.querySelector('.greenTest');
-            // greenSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
-            // greenSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
-          } else if (this.color === 'orange') {
-            //create color image
-            let newOrangeSplat = `<img class="splat" src="https://i.postimg.cc/G2sT6VrR/orange-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
-            //adds color image to page
-            this.shadowRoot.querySelector('.colorsArea').innerHTML += newOrangeSplat;
-
-            // let orangeSplat = this.shadowRoot.querySelector('.orangeTest');
-            // orangeSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
-            // orangeSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
-          }
+          if (Object.keys(this.splatMap).includes(this.color)) {
+            console.log(this.color);
+            let splat = document.createElement("img");
+            // this is not a normal thing but draggable actually accepts the string false to prevent dragging
+            splat.setAttribute('draggable', 'false');
+            splat.setAttribute('alt', '');
+            splat.src = this.splatMap[this.color];
+            // https://i.postimg.cc/4xJtnWvv blue
+            
+            console.log(splat.src);
+            splat.classList.add("splat");
+            splat.classList.add(this.brush);
+            splat.style.left = `${this.pictureX * this.clickLocationX}px`;
+            splat.style.top = `${this.pictureY * this.clickLocationY}px`;
+            this.shadowRoot.querySelector('.colorsArea').appendChild(splat);
         }
 
         //resets click
         this.clicked = false;
-        
       }
     });
   }
@@ -147,7 +115,7 @@ export class HaxCanvas extends LitElement {
 
     let queryString = Object.keys(colorItem).map(key => key + '=' + colorItem[key]).join('&');
     // this.checkData();
-    fetch(`./api/addColor?${queryString}`).then(res => res.json()).then((data) => {
+    fetch(`../api/addColor?${queryString}`).then(res => res.json()).then((data) => {
       console.log('fetch ran');
       this.checkData();
     });
@@ -177,6 +145,11 @@ export class HaxCanvas extends LitElement {
       :host {
         display: block;
         margin: auto;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        user-select: none;
       }
 
       .pictureArea {
@@ -197,6 +170,20 @@ export class HaxCanvas extends LitElement {
         width: 95%;
         z-index: 1;
       }
+      .small {
+        height: 50px;
+        width: 50px;
+      }
+      
+      .large {
+        height: 150px;
+        width: 150px;
+      }
+
+      .xlarge {
+        height: 200px;
+        width: 200px;
+      }
 
     `;
   }
@@ -208,7 +195,7 @@ export class HaxCanvas extends LitElement {
     <div class="pictureArea">
       <!--area where color images are added to-->
       <div class="colorsArea"></div>
-      <img class="haxImg" src="https://i.postimg.cc/tJQnbkCx/hax-camp-pic-2022.png" @click="${this.pictureAreaClicked}">
+      <img alt="" class="haxImg" draggable="false" src="https://i.postimg.cc/tJQnbkCx/hax-camp-pic-2022.png" @click="${this.pictureAreaClicked}" />
     </div>
     `;
   }
