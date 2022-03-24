@@ -1,6 +1,6 @@
 # \<hax-painting>
 
-This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.
+The goal is to make an interactive painting site where many amount of people can paint on the same image and it updates everyone's inputs to everybody's screen.
 
 ## Installation
 
