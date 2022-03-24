@@ -167,7 +167,7 @@ export class HaxCanvas extends LitElement {
 
       .haxImg {
         border: 1px dashed black;
-        width: 95%;
+        width: 70%;
         z-index: 1;
       }
       .small {
