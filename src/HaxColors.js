@@ -231,8 +231,7 @@ export class HaxColors extends LitElement {
   render() {
     return html`
     <div class="colorsTitle">
-        <h4>Select a Color</h4>
-        <h4>Then click on hax-camp 2022 picture</h4>
+        <h4>Select a color then click on hax-camp 2022 picture</h4>
     </div>
     <div class="colorsArea">
       <button class="option red" @click="${this.redClicked}"></button>
