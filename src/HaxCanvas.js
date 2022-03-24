@@ -136,10 +136,18 @@ export class HaxCanvas extends LitElement {
     }
   }
 
-  addColor(color, xCoorRatio, yCoorRatio) {
-    console.log(`${color} ${xCoorRatio} ${yCoorRatio}`);
+  addColor(col, xCoor, yCoor) {
+    console.log(`${col} ${xCoor} ${yCoor}`);
+
+    const colorItem = {
+      color: col,
+      xCoorRatio: xCoor,
+      yCoorRatio: yCoor
+    };
+
+    let queryString = Object.keys(colorItem).map(key => key + '=' + colorItem[key]).join('&');
     // this.checkData();
-    fetch(`../api/addColor?color=${color}&xCoorRatio=${xCoorRatio}&yCoorRatio=${yCoorRatio}`).then(res => res.json()).then((data) => {
+    fetch(`./api/addColor?${queryString}`).then(res => res.json()).then((data) => {
       console.log('fetch ran');
       this.checkData();
     });
