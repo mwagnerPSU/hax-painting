@@ -136,7 +136,7 @@ export class HaxCanvas extends LitElement {
 
     //gets coordinates of mouse inside haxImg at the click
     let rect = event.target.getBoundingClientRect();
-    this.xCoor = event.clientX - rect.left;
+    this.xCoor = event.clientX - 50;
     this.yCoor = event.clientY - rect.top;
   }
 
@@ -167,7 +167,7 @@ export class HaxCanvas extends LitElement {
 
       .haxImg {
         border: 1px dashed black;
-        width: 70%;
+        height: 500px;
         z-index: 1;
       }
       .small {
