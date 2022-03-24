@@ -12,7 +12,7 @@ npm i hax-painting
 
 ```html
 <script type="module">
-  import 'hax-painting/hax-painting.js';
+  import '../src/HaxPainting.js';
 </script>
 
 <hax-painting></hax-painting>
