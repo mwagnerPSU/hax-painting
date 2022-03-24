@@ -137,10 +137,22 @@ export class HaxCanvas extends LitElement {
   }
 
   addColor(color, xCoorRatio, yCoorRatio) {
+    console.log(`${color} ${xCoorRatio} ${yCoorRatio}`);
+    // this.checkData();
     fetch(`../api/addColor?color=${color}&xCoorRatio=${xCoorRatio}&yCoorRatio=${yCoorRatio}`).then(res => res.json()).then((data) => {
       console.log('fetch ran');
+      this.checkData();
     });
   }
+
+  checkData() {
+    console.log('check data ran');
+    fetch("../api/db").then(res => res.json()).then((data) => {
+      console.log(JSON.stringify(data, null, 2));
+    });
+  }
+
+  //C:\Users\Owner\Documents\HAX drawing project\hax-painting\api\db.js
 
   pictureAreaClicked(event) {
     //sets clicked
