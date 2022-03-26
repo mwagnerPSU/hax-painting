@@ -44,7 +44,7 @@ export class HaxPainting extends LitElement {
       <h3 class="pageTitle">Welcome to HAX Camp!</h3>
       <hax-canvas></hax-canvas>
       <hax-colors></hax-colors>
-      <img src="../red-splat.png" alt="red image"/>
+      <img src="/red-splat.png" alt="red image"/>
     </div>
     `;
   }
