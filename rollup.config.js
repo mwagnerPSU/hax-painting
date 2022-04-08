@@ -27,6 +27,10 @@ export default {
               src: 'red-splat.png',
               dest: 'dist/public',
             },
+            {
+              src: './images/red-splat.png',
+              dest: 'dist/public',
+            },
           ],
         }),
         nodeResolve(),
