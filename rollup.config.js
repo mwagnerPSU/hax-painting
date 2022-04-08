@@ -28,7 +28,7 @@ export default {
               dest: 'dist/public',
             },
             {
-              src: './images/red-splat.png',
+              src: 'images',
               dest: 'dist/public',
             },
           ],
