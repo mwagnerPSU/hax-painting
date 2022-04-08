@@ -28,8 +28,8 @@ export default {
               dest: 'dist/public',
             },
             {
-              src: 'images',
-              dest: 'dist/public',
+              src: 'images/**',
+              dest: 'dist/images',
             },
           ],
         }),
