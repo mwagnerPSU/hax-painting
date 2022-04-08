@@ -86,7 +86,8 @@ export class HaxCanvas extends LitElement {
             // this.addColor(this.color, this.clickLocationX, this.clickLocationY);
 
             //create color image
-            let newRedSplat = `<img class="splat" src="https://i.postimg.cc/wBrsfHCF/red-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            //let newRedSplat = `<img class="splat" src="https://i.postimg.cc/wBrsfHCF/red-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            let newRedSplat = `<img class="splat" src="../images/red-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
             //adds color image to page
             this.shadowRoot.querySelector('.colorsArea').innerHTML += newRedSplat;
 
@@ -95,7 +96,8 @@ export class HaxCanvas extends LitElement {
             // redSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
           } else if (this.color === 'blue') {
             //create color image
-            let newBlueSplat = `<img class="splat" src="https://i.postimg.cc/4xJtnWvv/blue-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            //let newBlueSplat = `<img class="splat" src="https://i.postimg.cc/4xJtnWvv/blue-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            let newBlueSplat = `<img class="splat" src="../images/blue-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
             //adds color image to page
             this.shadowRoot.querySelector('.colorsArea').innerHTML += newBlueSplat;
 
@@ -104,7 +106,8 @@ export class HaxCanvas extends LitElement {
             // blueSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
           } else if (this.color === 'green') {
             //create color image
-            let newGreenSplat = `<img class="splat" src="https://i.postimg.cc/2S2WWnTs/green-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            //let newGreenSplat = `<img class="splat" src="https://i.postimg.cc/2S2WWnTs/green-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            let newGreenSplat = `<img class="splat" src="../images/green-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
             //adds color image to page
             this.shadowRoot.querySelector('.colorsArea').innerHTML += newGreenSplat;
 
@@ -113,7 +116,8 @@ export class HaxCanvas extends LitElement {
             // greenSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
           } else if (this.color === 'orange') {
             //create color image
-            let newOrangeSplat = `<img class="splat" src="https://i.postimg.cc/G2sT6VrR/orange-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            //let newOrangeSplat = `<img class="splat" src="https://i.postimg.cc/G2sT6VrR/orange-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            let newOrangeSplat = `<img class="splat" src="../images/orange-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
             //adds color image to page
             this.shadowRoot.querySelector('.colorsArea').innerHTML += newOrangeSplat;
 

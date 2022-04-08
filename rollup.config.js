@@ -24,10 +24,6 @@ export default {
         copy({
           targets: [
             {
-              src: 'red-splat.png',
-              dest: 'dist/public',
-            },
-            {
               src: 'images/**',
               dest: 'dist/images',
             },

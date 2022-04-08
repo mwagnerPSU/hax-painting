@@ -45,7 +45,6 @@ export class HaxPainting extends LitElement {
       <hax-canvas></hax-canvas>
       <hax-colors></hax-colors>
       <img src="../images/red-splat.png" alt="red image1"/>
-      <img src="../red-splat.png" alt="red image2"/>
     </div>
     `;
   }
