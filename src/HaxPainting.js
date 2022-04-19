@@ -46,8 +46,14 @@ export class HaxPainting extends LitElement {
     return html`
     <div class="container">
       <h3 class="pageTitle">Welcome to HAX Camp!</h3>
+<<<<<<< master
       <hax-canvas brush="${this.brush}" color="${this.activeColor}"></hax-canvas>
       <hax-colors @brush-changed="${this.brushChange}" @active-color-changed="${this.colorChange}"></hax-colors>
+=======
+      <hax-canvas></hax-canvas>
+      <hax-colors></hax-colors>
+      <img src="../images/red-splat.png" alt="red image1"/>
+>>>>>>> master
     </div>
     `;
   }

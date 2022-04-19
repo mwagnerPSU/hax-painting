@@ -75,6 +75,7 @@ export class HaxCanvas extends LitElement {
 
           //creates color image based on the color selected
           //each image uses the click location ratios to postion picture in the right spot
+<<<<<<< master
           if (Object.keys(this.splatMap).includes(this.color)) {
             console.log(this.color);
             let splat = document.createElement("img");
@@ -90,6 +91,51 @@ export class HaxCanvas extends LitElement {
             splat.style.left = `${this.pictureX * this.clickLocationX}px`;
             splat.style.top = `${this.pictureY * this.clickLocationY}px`;
             this.shadowRoot.querySelector('.colorsArea').appendChild(splat);
+=======
+          if (this.color === 'red') {
+            // this.addColor(this.color, this.clickLocationX, this.clickLocationY);
+
+            //create color image
+            //let newRedSplat = `<img class="splat" src="https://i.postimg.cc/wBrsfHCF/red-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            let newRedSplat = `<img class="splat" src="../images/red-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            //adds color image to page
+            this.shadowRoot.querySelector('.colorsArea').innerHTML += newRedSplat;
+
+            // let redSplat = this.shadowRoot.querySelector('.redTest');
+            // redSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
+            // redSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
+          } else if (this.color === 'blue') {
+            //create color image
+            //let newBlueSplat = `<img class="splat" src="https://i.postimg.cc/4xJtnWvv/blue-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            let newBlueSplat = `<img class="splat" src="../images/blue-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            //adds color image to page
+            this.shadowRoot.querySelector('.colorsArea').innerHTML += newBlueSplat;
+
+            // let blueSplat = this.shadowRoot.querySelector('.blueTest');
+            // blueSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
+            // blueSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
+          } else if (this.color === 'green') {
+            //create color image
+            //let newGreenSplat = `<img class="splat" src="https://i.postimg.cc/2S2WWnTs/green-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            let newGreenSplat = `<img class="splat" src="../images/green-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            //adds color image to page
+            this.shadowRoot.querySelector('.colorsArea').innerHTML += newGreenSplat;
+
+            // let greenSplat = this.shadowRoot.querySelector('.greenTest');
+            // greenSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
+            // greenSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
+          } else if (this.color === 'orange') {
+            //create color image
+            //let newOrangeSplat = `<img class="splat" src="https://i.postimg.cc/G2sT6VrR/orange-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            let newOrangeSplat = `<img class="splat" src="../images/orange-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
+            //adds color image to page
+            this.shadowRoot.querySelector('.colorsArea').innerHTML += newOrangeSplat;
+
+            // let orangeSplat = this.shadowRoot.querySelector('.orangeTest');
+            // orangeSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
+            // orangeSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
+          }
+>>>>>>> master
         }
 
         //resets click
