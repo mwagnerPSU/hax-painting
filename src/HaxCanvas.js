@@ -18,11 +18,29 @@ export class HaxCanvas extends LitElement {
     this.clickLocationX = 0;
     this.clickLocationY = 0;
     this.splatMap = {
-      red: "https://i.postimg.cc/wBrsfHCF/splat.png",
-      blue: "https://i.postimg.cc/4xJtnWvv/splat.png",
-      green: "https://i.postimg.cc/2S2WWnTs/splat.png",
-      orange: "https://i.postimg.cc/G2sT6VrR/splat.png",
+      red: "../images/red-splat.png",
+      blue: "../images/blue-splat.png",
+      green: "../images/green-splat.png",
+      orange: "../images/orange-splat.png",
     };
+    this.splatCoorAdjustments = [
+      {
+        size: "small",
+        adj: 25
+      },
+      {
+        size: "normal",
+        adj: 0
+      },
+      {
+        size: "large",
+        adj: -25
+      },
+      {
+        size: "xlarge",
+        adj: -50
+      },
+    ];
   }
 
   static get properties() {
@@ -75,7 +93,6 @@ export class HaxCanvas extends LitElement {
 
           //creates color image based on the color selected
           //each image uses the click location ratios to postion picture in the right spot
-<<<<<<< master
           if (Object.keys(this.splatMap).includes(this.color)) {
             console.log(this.color);
             let splat = document.createElement("img");
@@ -91,7 +108,7 @@ export class HaxCanvas extends LitElement {
             splat.style.left = `${this.pictureX * this.clickLocationX}px`;
             splat.style.top = `${this.pictureY * this.clickLocationY}px`;
             this.shadowRoot.querySelector('.colorsArea').appendChild(splat);
-=======
+          /*
           if (this.color === 'red') {
             // this.addColor(this.color, this.clickLocationX, this.clickLocationY);
 
@@ -135,7 +152,7 @@ export class HaxCanvas extends LitElement {
             // orangeSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
             // orangeSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
           }
->>>>>>> master
+          */
         }
 
         //resets click
@@ -182,8 +199,14 @@ export class HaxCanvas extends LitElement {
 
     //gets coordinates of mouse inside haxImg at the click
     let rect = event.target.getBoundingClientRect();
-    this.xCoor = event.clientX - 50;
-    this.yCoor = event.clientY - rect.top;
+    this.splatCoorAdjustments.forEach(size => {
+      if (size.size === this.brush) {
+        this.xCoor = (event.clientX + size.adj) - rect.left;
+        this.yCoor = (event.clientY + size.adj) - rect.top;
+      }
+    })
+    // this.xCoor = event.clientX - rect.left;
+    // this.yCoor = event.clientY - rect.top;
   }
 
   static get styles() {
@@ -213,22 +236,25 @@ export class HaxCanvas extends LitElement {
 
       .haxImg {
         border: 1px dashed black;
-        height: 500px;
+        width: 95%;
         z-index: 1;
       }
       .small {
         height: 50px;
         width: 50px;
+        z-index: -1;
       }
       
       .large {
         height: 150px;
         width: 150px;
+        z-index: -1;
       }
 
       .xlarge {
         height: 200px;
         width: 200px;
+        z-index: -1;
       }
 
     `;
@@ -241,7 +267,7 @@ export class HaxCanvas extends LitElement {
     <div class="pictureArea">
       <!--area where color images are added to-->
       <div class="colorsArea"></div>
-      <img alt="" class="haxImg" draggable="false" src="https://i.postimg.cc/tJQnbkCx/hax-camp-pic-2022.png" @click="${this.pictureAreaClicked}" />
+      <img alt="" class="haxImg" draggable="false" src="../images/hax-camp-pic-2022.png" @click="${this.pictureAreaClicked}" />
     </div>
     `;
   }
