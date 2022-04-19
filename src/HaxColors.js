@@ -7,178 +7,51 @@ export class HaxColors extends LitElement {
 
   constructor() {
     super();
-    this.redSelected = false;
-    this.blueSelected = false;
-    this.greenSelected = false;
-    this.orangeSelected = false;
+    this.activeColor = "red";
+    this.brush = "normal";
   }
 
   static get properties() {
     return {
-      redSelected: { type: Boolean, reflect: true },
-      blueSelected: { type: Boolean, reflect: true },
-      greenSelected: { type: Boolean, reflect: true },
-      orangeSelected: { type: Boolean, reflect: true },
+      activeColor: { type: String, reflect: true, attribute: 'active-color' },
+      brush: { type: String}
     };
   }
 
   updated(changedProperties) {
     changedProperties.forEach((oldValue, propName) =>  {
-      if (propName === 'redSelected' && this[propName]) {
-        if (this.redSelected === true) {
-
-            console.log('red changed');
-
-            //reset other selections
-            this.blueSelected = false;
-            this.greenSelected = false;
-            this.orangeSelected = false;
-
-            //delete me
-            console.log(`red: ${this.redSelected}`);
-            console.log(`blue: ${this.blueSelected}`);
-            console.log(`green: ${this.greenSelected}`);
-            console.log(`orange: ${this.orangeSelected}`);
-
-            //button selection indication
-            let redButton = this.shadowRoot.querySelector('.red');
-            redButton.style.boxShadow = '6px 6px 6px #6A6C6E';
-
-            //reset other button borders
-            let blueButton = this.shadowRoot.querySelector('.blue');
-            let greenButton = this.shadowRoot.querySelector('.green');
-            let orangeButton = this.shadowRoot.querySelector('.orange');
-
-            blueButton.style.boxShadow = '3px 3px 3px #6A6C6E';
-            greenButton.style.boxShadow = '3px 3px 3px #6A6C6E';
-            orangeButton.style.boxShadow = '3px 3px 3px #6A6C6E';
-            
-        }
+      if (propName === 'activeColor' && this[propName]) {
+        this.shadowRoot.querySelectorAll('.active').forEach((node) => {
+          node.classList.remove('active');
+        });
+        // trick to ensure the prev actually finishes beforehand even tho it almost always will
+        // old devices it's possible it wouldn't but this enforced microtask will cheat to
+        // make sure it always nullifies others before setting self
+        setTimeout(() => {
+          this.shadowRoot.querySelector(`[data-color="${this[propName]}"]`).classList.add('active');          
+        }, 0);
+        this.dispatchEvent(new CustomEvent('active-color-changed', {
+          detail: this 
+        }));
       }
-
-      if (propName === 'blueSelected' && this[propName]) {
-        if (this.blueSelected === true) {
-
-            console.log('blue changed');
-
-            //reset other selections
-            this.redSelected = false;
-            this.greenSelected = false;
-            this.orangeSelected = false;
-
-            //delete me
-            console.log(`red: ${this.redSelected}`);
-            console.log(`blue: ${this.blueSelected}`);
-            console.log(`green: ${this.greenSelected}`);
-            console.log(`orange: ${this.orangeSelected}`);
-            
-            //button selection indication
-            let blueButton = this.shadowRoot.querySelector('.blue');
-            blueButton.style.boxShadow = '6px 6px 6px #6A6C6E';
-
-            //reset other button borders
-            let redButton = this.shadowRoot.querySelector('.red');
-            let greenButton = this.shadowRoot.querySelector('.green');
-            let orangeButton = this.shadowRoot.querySelector('.orange');
-
-            redButton.style.boxShadow = '3px 3px 3px #6A6C6E';
-            greenButton.style.boxShadow = '3px 3px 3px #6A6C6E';
-            orangeButton.style.boxShadow = '3px 3px 3px #6A6C6E';
-        }
-      }
-
-      if (propName === 'greenSelected' && this[propName]) {
-        if (this.greenSelected === true) {
-
-            console.log('green changed');
-
-            //reset other selections
-            this.redSelected = false;
-            this.blueSelected = false;
-            this.orangeSelected = false;
-
-            //delete me
-            console.log(`red: ${this.redSelected}`);
-            console.log(`blue: ${this.blueSelected}`);
-            console.log(`green: ${this.greenSelected}`);
-            console.log(`orange: ${this.orangeSelected}`);
-            
-            //button selection indication
-            let greenButton = this.shadowRoot.querySelector('.green');
-            greenButton.style.boxShadow = '6px 6px 6px #6A6C6E';
-
-            //reset other button borders
-            let redButton = this.shadowRoot.querySelector('.red');
-            let blueButton = this.shadowRoot.querySelector('.blue');
-            let orangeButton = this.shadowRoot.querySelector('.orange');
-
-            redButton.style.boxShadow = '3px 3px 3px #6A6C6E';
-            blueButton.style.boxShadow = '3px 3px 3px #6A6C6E';
-            orangeButton.style.boxShadow = '3px 3px 3px #6A6C6E';
-        }
-      }
-
-      if (propName === 'orangeSelected' && this[propName]) {
-        if (this.orangeSelected === true) {
-
-            console.log('orange changed');
-
-            //reset other selections
-            this.redSelected = false;
-            this.blueSelected = false;
-            this.greenSelected = false;
-
-            //delete me
-            console.log(`red: ${this.redSelected}`);
-            console.log(`blue: ${this.blueSelected}`);
-            console.log(`green: ${this.greenSelected}`);
-            console.log(`orange: ${this.orangeSelected}`);
-            
-            //button selection indication
-            let orangeButton = this.shadowRoot.querySelector('.orange');
-            orangeButton.style.boxShadow = '6px 6px 6px #6A6C6E';
-            
-            //reset other button borders
-            let redButton = this.shadowRoot.querySelector('.red');
-            let blueButton = this.shadowRoot.querySelector('.blue');
-            let greenButton = this.shadowRoot.querySelector('.green');
-
-            redButton.style.boxShadow = '3px 3px 3px #6A6C6E';
-            blueButton.style.boxShadow = '3px 3px 3px #6A6C6E';
-            greenButton.style.boxShadow = '3px 3px 3px #6A6C6E';
-        }
+      if (propName === 'brush' && this[propName]) {
+        this.dispatchEvent(new CustomEvent('brush-changed', {
+          detail: this 
+        }));
       }
     });
   }
 
-  firstUpdated(changedProperties) {
-    if (super.firstUpdated) {
-      super.firstUpdated(changedProperties);
+  //fires when red button is selected
+  btnClicked(e) {
+    // sanity check
+    if (e.target.hasAttribute('data-color')) {
+      this.activeColor = e.target.getAttribute('data-color');
     }
   }
-
-  //fires when red button is selected
-  redClicked() {
-    console.log('red clicked');
-    this.redSelected = true;
-  }
-
-  //fires when blue button is selected
-  blueClicked() {
-    console.log('blue clicked');
-    this.blueSelected = true;
-  }
-
-  //fires when green button is selected
-  greenClicked() {
-    console.log('green clicked');
-    this.greenSelected = true;
-  }
-  
-  //fires when otange button is selected
-  orangeClicked() {
-    console.log('orange clicked');
-    this.orangeSelected = true;
+  // brush changed but we have to actually query the item to get the value bc HTML is weird
+  brushChange() {
+    this.brush = this.shadowRoot.querySelector("#brush").value;
   }
 
   static get styles() {
@@ -200,6 +73,13 @@ export class HaxColors extends LitElement {
         justify-content: space-around;
         width: 80%;
       }
+      .toolsArea {
+        display: inline-flex;
+        width: 10%;
+      }
+      #brush {
+        font-size: 36px;
+      }
 
       .option {
         width: 50px;
@@ -208,6 +88,9 @@ export class HaxColors extends LitElement {
         border-radius: 50%;
         border: 1px solid black;
         box-shadow: 3px 3px 1px #6A6C6E;
+      }
+      .active {
+        box-shadow: 6px 6px 6px #6A6C6E;
       }
 
       .red {
@@ -233,11 +116,18 @@ export class HaxColors extends LitElement {
     <div class="colorsTitle">
         <h4>Select a color then click on hax-camp 2022 picture</h4>
     </div>
+    <div class="toolsArea">
+      <label for="brush">Brush size:</label>
+      <select id="brush" @change="${this.brushChange}">
+      <option value="small">small</option>
+      <option value="normal" selected>normal</option>
+      <option value="large">large</option>
+      <option value="xlarge">xlarge</option>
+      </select>
+    </div>
     <div class="colorsArea">
-      <button class="option red" @click="${this.redClicked}"></button>
-      <button class="option blue" @click="${this.blueClicked}"></button>
-      <button class="option green" @click="${this.greenClicked}"></button>
-      <button class="option orange" @click="${this.orangeClicked}"></button>
+      ${['red', 'orange', 'blue', 'green'].map(item => html`<button class="option ${item}" data-color="${item}" @click="${this.btnClicked}"></button>`
+      )}
     </div>
     `;
   }

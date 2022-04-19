@@ -1,6 +1,6 @@
 import { html, css, LitElement } from 'lit';
-import './HaxCanvas';
-import './HaxColors';
+import './HaxCanvas.js';
+import './HaxColors.js';
 
 export class HaxPainting extends LitElement {
   static get tag() {
@@ -9,11 +9,15 @@ export class HaxPainting extends LitElement {
 
   constructor() {
     super();
+    this.activeColor = 'red';
+    this.brush = "normal";
   }
 
   static get properties() {
     return {
 
+      activeColor: { type: String, reflect: true, attribute: 'active-color' },
+      brush: { type: String, reflect: true },
     };
   }
 
@@ -21,12 +25,6 @@ export class HaxPainting extends LitElement {
     changedProperties.forEach((oldValue, propName) =>  {
 
     });
-  }
-
-  firstUpdated(changedProperties) {
-    if (super.firstUpdated) {
-      super.firstUpdated(changedProperties);
-    }
   }
 
   static get styles() {
@@ -37,14 +35,25 @@ export class HaxPainting extends LitElement {
       }
     `;
   }
+  colorChange(e) {
+    this.activeColor = e.detail.activeColor;
+  }
+  brushChange(e) {
+    this.brush = e.detail.brush;
+  }
 
   render() {
     return html`
     <div class="container">
       <h3 class="pageTitle">Welcome to HAX Camp!</h3>
+<<<<<<< master
+      <hax-canvas brush="${this.brush}" color="${this.activeColor}"></hax-canvas>
+      <hax-colors @brush-changed="${this.brushChange}" @active-color-changed="${this.colorChange}"></hax-colors>
+=======
       <hax-canvas></hax-canvas>
       <hax-colors></hax-colors>
       <img src="../images/red-splat.png" alt="red image1"/>
+>>>>>>> master
     </div>
     `;
   }
