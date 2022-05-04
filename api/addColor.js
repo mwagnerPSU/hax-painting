@@ -3,15 +3,16 @@ import { PSDB } from 'planetscale-node';
 
 export default async function handler(req, res) {
   const conn = new PSDB('main', {namedPlaceholders: true});
-  const { color, xCoorRatio, yCoorRatio } = req.query;
+  const { color, xCoorRatio, yCoorRatio, size } = req.query;
   var colorItem = {
     color: color,
     xCoorRatio: xCoorRatio,
     yCoorRatio: yCoorRatio,
+    size: size,
   };
 
   const [dbResult] = await conn.execute(
-    `INSERT INTO colors(color, xCoorRatio, yCoorRatio) VALUES( :color, :xCoorRatio, :yCoorRatio)`,
+    `INSERT INTO colors(color, xCoorRatio, yCoorRatio, size) VALUES( :color, :xCoorRatio, :yCoorRatio, :size)`,
     colorItem
   );
 
