@@ -2,21 +2,24 @@
 import { PSDB } from 'planetscale-node';
 
 export default async function handler(req, res) {
-  // this is making wide sweeping assumptions of the data accuracy
+  const conn = new PSDB('main', {namedPlaceholders: true});
   const { color, xCoorRatio, yCoorRatio } = req.query;
   var colorItem = {
     color: color,
     xCoorRatio: xCoorRatio,
     yCoorRatio: yCoorRatio,
   };
-  // this option helps establish a more secure connection object
-  const conn = new PSDB('main', {namedPlaceholders: true});
-  // INSERT the values that came across into the users table
+
   const [dbResult] = await conn.execute(
     `INSERT INTO colors(color, xCoorRatio, yCoorRatio) VALUES( :color, :xCoorRatio, :yCoorRatio)`,
-    user
+    colorItem
   );
-  // take the id that comes back and then apply to the user object
-//   user.id = dbResult.insertId
+
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
+  res.setHeader("Access-Control-Allow-Headers", "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version");
+  
+  colorItem.id = dbResult.insertId
   res.json(colorItem);
 }

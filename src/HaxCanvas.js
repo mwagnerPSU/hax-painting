@@ -41,6 +41,12 @@ export class HaxCanvas extends LitElement {
         adj: -50
       },
     ];
+
+    this.allColors = [];
+
+    //db endpoints
+    this.addColorEndpoint = '/api/addColor';
+    this.dbEndpoint = '/api/db';
   }
 
   static get properties() {
@@ -167,28 +173,35 @@ export class HaxCanvas extends LitElement {
     }
   }
 
-  addColor(col, xCoor, yCoor) {
-    console.log(`${col} ${xCoor} ${yCoor}`);
+  // addColor(col, xCoor, yCoor) {
+  //   console.log(`${col} ${xCoor} ${yCoor}`);
 
-    const colorItem = {
-      color: col,
-      xCoorRatio: xCoor,
-      yCoorRatio: yCoor
-    };
+  //   const colorItem = {
+  //     color: col,
+  //     xCoorRatio: xCoor,
+  //     yCoorRatio: yCoor
+  //   };
 
-    let queryString = Object.keys(colorItem).map(key => key + '=' + colorItem[key]).join('&');
-    // this.checkData();
-    fetch(`../api/addColor?${queryString}`).then(res => res.json()).then((data) => {
-      console.log('fetch ran');
-      this.checkData();
-    });
+  //   let queryString = Object.keys(colorItem).map(key => key + '=' + colorItem[key]).join('&');
+  //   // this.checkData();
+  //   fetch(`../api/addColor?${queryString}`).then(res => res.json()).then((data) => {
+  //     console.log('fetch ran');
+  //     this.checkData();
+  //   });
+  // }
+
+  async addColor() {
+    const request = await fetch(`${this.addColorEndpoint}?color=${this.color}&xCoorRatio=${this.xCoorRatio}&yCoorRatio=${this.yCoorRatio}`).then(res => res.json());
+    
+    let result = request;
+    console.log(`Added new color. Color: ${result.color} xCoorRatio: ${result.xCoorRatio} yCoorRatio: ${result.yCoorRatio}`);
   }
 
-  checkData() {
+  async getData() {
     console.log('check data ran');
-    fetch("../api/db").then(res => res.json()).then((data) => {
-      console.log(JSON.stringify(data, null, 2));
-    });
+    const request = await fetch(`${this.dbEndpoint}`).then(res => res.json());
+    this.allColors = JSON.parse(JSON.stringify(request));
+    console.log(this.allColors);
   }
 
   //C:\Users\Owner\Documents\HAX drawing project\hax-painting\api\db.js
@@ -269,6 +282,8 @@ export class HaxCanvas extends LitElement {
       <div class="colorsArea"></div>
       <img alt="" class="haxImg" draggable="false" src="../images/hax-camp-pic-2022.png" @click="${this.pictureAreaClicked}" />
     </div>
+    <button class='testBtn' @click=${this.addColor}>Add Color Test</button>
+    <button class='testBtn' @click=${this.getData}>Get Data Test</button>
     `;
   }
 }
