@@ -47,6 +47,7 @@ export class HaxCanvas extends LitElement {
     //db endpoints
     this.addColorEndpoint = '/api/addColor';
     this.dbEndpoint = '/api/db';
+    this.deleteAllColorsEndpoint = '/api/deleteAllColors';
   }
 
   static get properties() {
@@ -192,6 +193,7 @@ export class HaxCanvas extends LitElement {
   //   });
   // }
 
+  //db endpoint to add a color
   async addColor() {
     // let testColor = 'red';
     // let testXCoorRatio = 0.3704637096774194;
@@ -204,11 +206,19 @@ export class HaxCanvas extends LitElement {
     console.log(`Added new color. Color: ${result.color} xCoorRatio: ${result.xCoorRatio} yCoorRatio: ${result.yCoorRatio}`);
   }
 
+  //db endpoint to get all colors data
   async getData() {
     console.log('check data ran');
     const request = await fetch(`${this.dbEndpoint}`).then(res => res.json());
     this.allColors = JSON.parse(JSON.stringify(request));
     console.log(this.allColors);
+  }
+
+  //db endpoint to delete all colors
+  async deleteAllColors() {
+    const request = await fetch(`${this.deleteAllColorsEndpoint}`).then(res => res.json());
+    let result = request;
+    console.log(result);
   }
 
   //C:\Users\Owner\Documents\HAX drawing project\hax-painting\api\db.js
@@ -291,6 +301,7 @@ export class HaxCanvas extends LitElement {
     </div>
     <button class='testBtn' @click=${this.addColor}>Add Color Test</button>
     <button class='testBtn' @click=${this.getData}>Get Data Test</button>
+    <button class='testBtn' @click=${this.deleteAllColors}>Delete All Colors Test</button>
     `;
   }
 }
