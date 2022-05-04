@@ -191,7 +191,12 @@ export class HaxCanvas extends LitElement {
   // }
 
   async addColor() {
-    const request = await fetch(`${this.addColorEndpoint}?color=${this.color}&xCoorRatio=${this.xCoorRatio}&yCoorRatio=${this.yCoorRatio}`).then(res => res.json());
+    let testColor = 'red';
+    let testXCoorRatio = 0.3704637096774194;
+    let testYCoorRatio = 0.4800043706293706;
+
+    //const request = await fetch(`${this.addColorEndpoint}?color=${this.color}&xCoorRatio=${this.xCoorRatio}&yCoorRatio=${this.yCoorRatio}`).then(res => res.json());
+    const request = await fetch(`${this.addColorEndpoint}?color=${testColor}&xCoorRatio=${testXCoorRatio}&yCoorRatio=${testYCoorRatio}`).then(res => res.json());
     
     let result = request;
     console.log(`Added new color. Color: ${result.color} xCoorRatio: ${result.xCoorRatio} yCoorRatio: ${result.yCoorRatio}`);
