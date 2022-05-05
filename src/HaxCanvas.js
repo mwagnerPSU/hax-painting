@@ -227,9 +227,6 @@ export class HaxCanvas extends LitElement {
 
   //db endpoint to add a color
   async addColor() {
-    // let testColor = 'red';
-    // let testXCoorRatio = 0.3704637096774194;
-    // let testYCoorRatio = 0.4800043706293706;
 
     const request = await fetch(`${this.addColorEndpoint}?color=${this.color}&xCoorRatio=${this.clickLocationX}&yCoorRatio=${this.clickLocationY}&size=${this.brush}`).then(res => res.json());
     // const request = await fetch(`${this.addColorEndpoint}?color=${testColor}&xCoorRatio=${testXCoorRatio}&yCoorRatio=${testYCoorRatio}`).then(res => res.json());
@@ -251,6 +248,10 @@ export class HaxCanvas extends LitElement {
     const request = await fetch(`${this.deleteAllColorsEndpoint}`).then(res => res.json());
     let result = request;
     console.log(result);
+  }
+
+  refresh() {
+    this.populateAllColors = true;
   }
 
   //C:\Users\Owner\Documents\HAX drawing project\hax-painting\api\db.js
@@ -332,7 +333,7 @@ export class HaxCanvas extends LitElement {
     <button class='testBtn' @click=${this.addColor}>Add Color Test</button>
     <button class='testBtn' @click=${this.getData}>Get Data Test</button>
     <button class='testBtn' @click=${this.deleteAllColors}>Delete All Colors Test</button>
-    <button class='testBtn' @click=${this.populateAllColors = true}>Refresh Test</button>
+    <button class='testBtn' @click=${this.refresh}>Refresh Test</button>
     `;
   }
 }
