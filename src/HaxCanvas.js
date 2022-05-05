@@ -9,6 +9,7 @@ export class HaxCanvas extends LitElement {
     super();
     this.title = '';
     this.clicked = false;
+    this.populateAllColors = false;
     this.color = "";
     this.brush = 'normal';
     this.xCoor = 0;
@@ -54,6 +55,7 @@ export class HaxCanvas extends LitElement {
     return {
       title: { type: String },
       clicked: { type: Boolean },
+      populateAllColors: { type: Boolean },
       //selected color
       color: { type: String },
       //mouse coordinates on click
@@ -167,6 +169,53 @@ export class HaxCanvas extends LitElement {
         //resets click
         this.clicked = false;
       }
+
+      if (propName === 'populateAllColors' && this[propName]) {
+        console.log('populate all colors');
+        //get picture element
+        let picture = this.shadowRoot.querySelector('.haxImg');
+
+        //get height and width of image on user's device
+        this.pictureX = picture.clientWidth;
+        this.pictureY = picture.clientHeight;
+
+        this.getData();
+
+        setTimeout(() => {
+          this.shadowRoot.querySelector('.colorsArea').innerHTML = '';
+
+          this.allColors.forEach(color => {
+            //sets ratios to data from db where the click location was relative to the size of the image
+            // let xCoorRatio = color.xCoorRatio;
+            // let yCoorRatio = color.yCoorRatio;
+
+            // console.log(`xCoorRatio: ${xCoorRatio}`);
+            // console.log(`yCoorRatio: ${yCoorRatio}`);
+
+            //creates color image based on the color selected
+            //each image uses the coor ratios to postion picture in the right spot
+            if (Object.keys(this.splatMap).includes(color.color)) {
+              console.log(color.color);
+              let splat = document.createElement("img");
+              //prevents dragging
+              splat.setAttribute('draggable', 'false');
+              splat.setAttribute('alt', '');
+              splat.src = this.splatMap[color.color];
+              // https://i.postimg.cc/4xJtnWvv blue
+              
+              console.log(splat.src);
+              splat.classList.add("splat");
+              splat.classList.add(color.size);
+              splat.style.left = `${this.pictureX * color.xCoorRatio}px`;
+              splat.style.top = `${this.pictureY * color.yCoorRatio}px`;
+              this.shadowRoot.querySelector('.colorsArea').appendChild(splat);
+            }
+          });
+        }, 1000);
+
+        //resets click
+        this.populateAllColors = false;
+      }
     });
   }
 
@@ -175,23 +224,6 @@ export class HaxCanvas extends LitElement {
       super.firstUpdated(changedProperties);
     }
   }
-
-  // addColor(col, xCoor, yCoor) {
-  //   console.log(`${col} ${xCoor} ${yCoor}`);
-
-  //   const colorItem = {
-  //     color: col,
-  //     xCoorRatio: xCoor,
-  //     yCoorRatio: yCoor
-  //   };
-
-  //   let queryString = Object.keys(colorItem).map(key => key + '=' + colorItem[key]).join('&');
-  //   // this.checkData();
-  //   fetch(`../api/addColor?${queryString}`).then(res => res.json()).then((data) => {
-  //     console.log('fetch ran');
-  //     this.checkData();
-  //   });
-  // }
 
   //db endpoint to add a color
   async addColor() {
@@ -203,7 +235,7 @@ export class HaxCanvas extends LitElement {
     // const request = await fetch(`${this.addColorEndpoint}?color=${testColor}&xCoorRatio=${testXCoorRatio}&yCoorRatio=${testYCoorRatio}`).then(res => res.json());
     
     let result = request;
-    console.log(`Added new color. Color: ${result.color} xCoorRatio: ${result.xCoorRatio} yCoorRatio: ${result.yCoorRatio}`);
+    console.log(`Added new color. Color: ${result.color} xCoorRatio: ${result.xCoorRatio} yCoorRatio: ${result.yCoorRatio} size: ${result.size}`);
   }
 
   //db endpoint to get all colors data
@@ -235,8 +267,6 @@ export class HaxCanvas extends LitElement {
         this.yCoor = (event.clientY + size.adj) - rect.top;
       }
     })
-    // this.xCoor = event.clientX - rect.left;
-    // this.yCoor = event.clientY - rect.top;
   }
 
   static get styles() {
@@ -302,6 +332,7 @@ export class HaxCanvas extends LitElement {
     <button class='testBtn' @click=${this.addColor}>Add Color Test</button>
     <button class='testBtn' @click=${this.getData}>Get Data Test</button>
     <button class='testBtn' @click=${this.deleteAllColors}>Delete All Colors Test</button>
+    <button class='testBtn' @click=${this.populateAllColors = true}>Refresh Test</button>
     `;
   }
 }
