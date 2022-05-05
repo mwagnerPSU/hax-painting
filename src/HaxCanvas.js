@@ -170,52 +170,52 @@ export class HaxCanvas extends LitElement {
         this.clicked = false;
       }
 
-      if (propName === 'populateAllColors' && this[propName]) {
-        console.log('populate all colors');
-        //get picture element
-        let picture = this.shadowRoot.querySelector('.haxImg');
+      // if (propName === 'populateAllColors' && this[propName]) {
+      //   console.log('populate all colors');
+      //   //get picture element
+      //   let picture = this.shadowRoot.querySelector('.haxImg');
 
-        //get height and width of image on user's device
-        this.pictureX = picture.clientWidth;
-        this.pictureY = picture.clientHeight;
+      //   //get height and width of image on user's device
+      //   this.pictureX = picture.clientWidth;
+      //   this.pictureY = picture.clientHeight;
 
-        this.getData();
+      //   this.getData();
 
-        setTimeout(() => {
-          this.shadowRoot.querySelector('.colorsArea').innerHTML = '';
+      //   setTimeout(() => {
+      //     this.shadowRoot.querySelector('.colorsArea').innerHTML = '';
 
-          this.allColors.forEach(color => {
-            //sets ratios to data from db where the click location was relative to the size of the image
-            // let xCoorRatio = color.xCoorRatio;
-            // let yCoorRatio = color.yCoorRatio;
+      //     this.allColors.forEach(color => {
+      //       //sets ratios to data from db where the click location was relative to the size of the image
+      //       // let xCoorRatio = color.xCoorRatio;
+      //       // let yCoorRatio = color.yCoorRatio;
 
-            // console.log(`xCoorRatio: ${xCoorRatio}`);
-            // console.log(`yCoorRatio: ${yCoorRatio}`);
+      //       // console.log(`xCoorRatio: ${xCoorRatio}`);
+      //       // console.log(`yCoorRatio: ${yCoorRatio}`);
 
-            //creates color image based on the color selected
-            //each image uses the coor ratios to postion picture in the right spot
-            if (Object.keys(this.splatMap).includes(color.color)) {
-              console.log(color.color);
-              let splat = document.createElement("img");
-              //prevents dragging
-              splat.setAttribute('draggable', 'false');
-              splat.setAttribute('alt', '');
-              splat.src = this.splatMap[color.color];
-              // https://i.postimg.cc/4xJtnWvv blue
+      //       //creates color image based on the color selected
+      //       //each image uses the coor ratios to postion picture in the right spot
+      //       if (Object.keys(this.splatMap).includes(color.color)) {
+      //         console.log(color.color);
+      //         let splat = document.createElement("img");
+      //         //prevents dragging
+      //         splat.setAttribute('draggable', 'false');
+      //         splat.setAttribute('alt', '');
+      //         splat.src = this.splatMap[color.color];
+      //         // https://i.postimg.cc/4xJtnWvv blue
               
-              console.log(splat.src);
-              splat.classList.add("splat");
-              splat.classList.add(color.size);
-              splat.style.left = `${this.pictureX * color.xCoorRatio}px`;
-              splat.style.top = `${this.pictureY * color.yCoorRatio}px`;
-              this.shadowRoot.querySelector('.colorsArea').appendChild(splat);
-            }
-          });
-        }, 1000);
+      //         console.log(splat.src);
+      //         splat.classList.add("splat");
+      //         splat.classList.add(color.size);
+      //         splat.style.left = `${this.pictureX * color.xCoorRatio}px`;
+      //         splat.style.top = `${this.pictureY * color.yCoorRatio}px`;
+      //         this.shadowRoot.querySelector('.colorsArea').appendChild(splat);
+      //       }
+      //     });
+      //   }, 1000);
 
-        //resets click
-        this.populateAllColors = false;
-      }
+      //   //resets click
+      //   this.populateAllColors = false;
+      // }
     });
   }
 
