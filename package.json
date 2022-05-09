@@ -20,7 +20,10 @@
   },
   "dependencies": {
     "lit": "^2.0.2",
-    "planetscale-node": "^0.3.0"
+    "planetscale-node": "^0.3.0",
+    "async": "^2.6.4",
+    "ejs": ">=3.1.7",
+    "trim": "0.0.3"
   },
   "devDependencies": {
     "rollup-plugin-copy": "3.4.0",
