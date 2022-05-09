@@ -9,7 +9,6 @@ export class HaxCanvas extends LitElement {
     super();
     this.title = '';
     this.clicked = false;
-    this.populateAllColors = false;
     this.color = "";
     this.brush = 'normal';
     this.xCoor = 0;
@@ -42,20 +41,12 @@ export class HaxCanvas extends LitElement {
         adj: -50
       },
     ];
-
-    this.allColors = [];
-
-    //db endpoints
-    this.addColorEndpoint = '/api/addColor';
-    this.dbEndpoint = '/api/db';
-    this.deleteAllColorsEndpoint = '/api/deleteAllColors';
   }
 
   static get properties() {
     return {
       title: { type: String },
       clicked: { type: Boolean },
-      populateAllColors: { type: Boolean },
       //selected color
       color: { type: String },
       //mouse coordinates on click
@@ -120,13 +111,11 @@ export class HaxCanvas extends LitElement {
           /*
           if (this.color === 'red') {
             // this.addColor(this.color, this.clickLocationX, this.clickLocationY);
-
             //create color image
             //let newRedSplat = `<img class="splat" src="https://i.postimg.cc/wBrsfHCF/red-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
             let newRedSplat = `<img class="splat" src="../images/red-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
             //adds color image to page
             this.shadowRoot.querySelector('.colorsArea').innerHTML += newRedSplat;
-
             // let redSplat = this.shadowRoot.querySelector('.redTest');
             // redSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
             // redSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
@@ -136,7 +125,6 @@ export class HaxCanvas extends LitElement {
             let newBlueSplat = `<img class="splat" src="../images/blue-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
             //adds color image to page
             this.shadowRoot.querySelector('.colorsArea').innerHTML += newBlueSplat;
-
             // let blueSplat = this.shadowRoot.querySelector('.blueTest');
             // blueSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
             // blueSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
@@ -146,7 +134,6 @@ export class HaxCanvas extends LitElement {
             let newGreenSplat = `<img class="splat" src="../images/green-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
             //adds color image to page
             this.shadowRoot.querySelector('.colorsArea').innerHTML += newGreenSplat;
-
             // let greenSplat = this.shadowRoot.querySelector('.greenTest');
             // greenSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
             // greenSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
@@ -156,7 +143,6 @@ export class HaxCanvas extends LitElement {
             let newOrangeSplat = `<img class="splat" src="../images/orange-splat.png" style="left: ${this.pictureX * this.clickLocationX}px; top: ${this.pictureY * this.clickLocationY}px;">`;
             //adds color image to page
             this.shadowRoot.querySelector('.colorsArea').innerHTML += newOrangeSplat;
-
             // let orangeSplat = this.shadowRoot.querySelector('.orangeTest');
             // orangeSplat.style.left = `${this.pictureX * this.clickLocationX}px`;
             // orangeSplat.style.top = `${this.pictureY * this.clickLocationY}px`;
@@ -164,58 +150,9 @@ export class HaxCanvas extends LitElement {
           */
         }
 
-        this.addColor();
-
         //resets click
         this.clicked = false;
       }
-
-      // if (propName === 'populateAllColors' && this[propName]) {
-      //   console.log('populate all colors');
-      //   //get picture element
-      //   let picture = this.shadowRoot.querySelector('.haxImg');
-
-      //   //get height and width of image on user's device
-      //   this.pictureX = picture.clientWidth;
-      //   this.pictureY = picture.clientHeight;
-
-      //   this.getData();
-
-      //   setTimeout(() => {
-      //     this.shadowRoot.querySelector('.colorsArea').innerHTML = '';
-
-      //     this.allColors.forEach(color => {
-      //       //sets ratios to data from db where the click location was relative to the size of the image
-      //       // let xCoorRatio = color.xCoorRatio;
-      //       // let yCoorRatio = color.yCoorRatio;
-
-      //       // console.log(`xCoorRatio: ${xCoorRatio}`);
-      //       // console.log(`yCoorRatio: ${yCoorRatio}`);
-
-      //       //creates color image based on the color selected
-      //       //each image uses the coor ratios to postion picture in the right spot
-      //       if (Object.keys(this.splatMap).includes(color.color)) {
-      //         console.log(color.color);
-      //         let splat = document.createElement("img");
-      //         //prevents dragging
-      //         splat.setAttribute('draggable', 'false');
-      //         splat.setAttribute('alt', '');
-      //         splat.src = this.splatMap[color.color];
-      //         // https://i.postimg.cc/4xJtnWvv blue
-              
-      //         console.log(splat.src);
-      //         splat.classList.add("splat");
-      //         splat.classList.add(color.size);
-      //         splat.style.left = `${this.pictureX * color.xCoorRatio}px`;
-      //         splat.style.top = `${this.pictureY * color.yCoorRatio}px`;
-      //         this.shadowRoot.querySelector('.colorsArea').appendChild(splat);
-      //       }
-      //     });
-      //   }, 1000);
-
-      //   //resets click
-      //   this.populateAllColors = false;
-      // }
     });
   }
 
@@ -225,33 +162,28 @@ export class HaxCanvas extends LitElement {
     }
   }
 
-  //db endpoint to add a color
-  async addColor() {
+  addColor(col, xCoor, yCoor) {
+    console.log(`${col} ${xCoor} ${yCoor}`);
 
-    const request = await fetch(`${this.addColorEndpoint}?color=${this.color}&xCoorRatio=${this.clickLocationX}&yCoorRatio=${this.clickLocationY}&size=${this.brush}`).then(res => res.json());
-    // const request = await fetch(`${this.addColorEndpoint}?color=${testColor}&xCoorRatio=${testXCoorRatio}&yCoorRatio=${testYCoorRatio}`).then(res => res.json());
-    
-    let result = request;
-    console.log(`Added new color. Color: ${result.color} xCoorRatio: ${result.xCoorRatio} yCoorRatio: ${result.yCoorRatio} size: ${result.size}`);
+    const colorItem = {
+      color: col,
+      xCoorRatio: xCoor,
+      yCoorRatio: yCoor
+    };
+
+    let queryString = Object.keys(colorItem).map(key => key + '=' + colorItem[key]).join('&');
+    // this.checkData();
+    fetch(`../api/addColor?${queryString}`).then(res => res.json()).then((data) => {
+      console.log('fetch ran');
+      this.checkData();
+    });
   }
 
-  //db endpoint to get all colors data
-  async getData() {
+  checkData() {
     console.log('check data ran');
-    const request = await fetch(`${this.dbEndpoint}`).then(res => res.json());
-    this.allColors = JSON.parse(JSON.stringify(request));
-    console.log(this.allColors);
-  }
-
-  //db endpoint to delete all colors
-  async deleteAllColors() {
-    const request = await fetch(`${this.deleteAllColorsEndpoint}`).then(res => res.json());
-    let result = request;
-    console.log(result);
-  }
-
-  refresh() {
-    this.populateAllColors = true;
+    fetch("../api/db").then(res => res.json()).then((data) => {
+      console.log(JSON.stringify(data, null, 2));
+    });
   }
 
   //C:\Users\Owner\Documents\HAX drawing project\hax-painting\api\db.js
@@ -268,6 +200,8 @@ export class HaxCanvas extends LitElement {
         this.yCoor = (event.clientY + size.adj) - rect.top;
       }
     })
+    // this.xCoor = event.clientX - rect.left;
+    // this.yCoor = event.clientY - rect.top;
   }
 
   static get styles() {
@@ -281,20 +215,17 @@ export class HaxCanvas extends LitElement {
         -o-user-select: none;
         user-select: none;
       }
-
       .pictureArea {
         display: flex;
         justify-content: center;
         height: auto;
       }
-
       .splat {
         height: 100px;
         width: 100px;
         position: absolute;
         z-index: -1;
       }
-
       .haxImg {
         border: 1px dashed black;
         width: 95%;
@@ -311,13 +242,11 @@ export class HaxCanvas extends LitElement {
         width: 150px;
         z-index: -1;
       }
-
       .xlarge {
         height: 200px;
         width: 200px;
         z-index: -1;
       }
-
     `;
   }
 
@@ -330,10 +259,6 @@ export class HaxCanvas extends LitElement {
       <div class="colorsArea"></div>
       <img alt="" class="haxImg" draggable="false" src="../images/hax-camp-pic-2022.png" @click="${this.pictureAreaClicked}" />
     </div>
-    <button class='testBtn' @click=${this.addColor}>Add Color Test</button>
-    <button class='testBtn' @click=${this.getData}>Get Data Test</button>
-    <button class='testBtn' @click=${this.deleteAllColors}>Delete All Colors Test</button>
-    <button class='testBtn' @click=${this.refresh}>Refresh Test</button>
     `;
   }
 }
